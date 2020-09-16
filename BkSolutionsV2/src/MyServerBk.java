@@ -3,13 +3,13 @@ import java.sql.SQLException;
 
 import modelo.Cliente;
 
-public class MyServerBk implements ServidorBkSolutions.InterfaceCommand {
+public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
-	private ServidorBkSolutions server;
+	private ServerCoreBK server;
 
 	public MyServerBk(int port) {
 		super();
-		server = new ServidorBkSolutions(port);
+		server = new ServerCoreBK(port);
 		server.setInterfaceConnectionListener(this);
 		try {
 			server.init();

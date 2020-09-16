@@ -9,14 +9,14 @@ import conexaobd.BKClienteDAO;
 import modelo.Cliente;
 
 //@SuppressWarnings("unused")
-public class ServidorBkSolutions {
+public class ServerCoreBK {
 	private int port;
 	private boolean threadStart = true;
 	private ServerSocket serverSocket;
 	private volatile ServerCore serverCore;
 	private volatile List<SocketCliente> socketClientes;
 
-	public ServidorBkSolutions(int port) {
+	public ServerCoreBK(int port) {
 		this.port = port;
 		serverCore = new ServerCore();
 		socketClientes = new ArrayList<SocketCliente>();
