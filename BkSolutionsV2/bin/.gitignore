@@ -13,3 +13,6 @@
 /ServerCoreBK$InterfaceCommand.class
 /ServerCoreBK$ServerCore.class
 /ServerCoreBK.class
+/Request.class
+/Request$TipoRequisicao.class
+/Request$StatusRequisicao.class

@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import conexaobd.BKClienteDAO;
 import modelo.Cliente;
@@ -97,7 +98,7 @@ public class ServerCoreBK {
 	}
 
 	private class ServerCore extends Thread{
-	
+		private Request request = new Request();
 		private String comando;
 		private SocketCliente sc;
 		private InterfaceCommand interfaceCommand;
@@ -150,12 +151,26 @@ public class ServerCoreBK {
 					enviarComando(sc);
 
 				} else {
-					Cliente cliente = interfaceCommand.onLoginRequest(sc);
-					if (cliente != null) {
-						sc.setCliente(cliente);
-					} else {
-						interfaceCommand.removeSocket(sc);
+					String id = UUID.randomUUID().toString();
+					if(request.getStatus() != Request.StatusRequisicao.AGUARDANDO) {
+						request.setCodeRequest(id);
+						request.setTypeRequest(Request.TipoRequisicao.LOGIN_REQUEST);
+						request.setMsgRequest("Favor passar suas informacoes de login");
+						request.setStatus(Request.StatusRequisicao.FEITA);
+						
+						sc.sendObject(request);
+						
+						request.setStatus(Request.StatusRequisicao.AGUARDANDO);
+						System.out.println(id);
 					}
+					
+					
+//					Cliente cliente = interfaceCommand.onLoginRequest(sc);
+//					if (cliente != null) {
+//						sc.setCliente(cliente);
+//					} else {
+//						interfaceCommand.removeSocket(sc);
+//					}
 				}
 
 			} catch (IOException e) {
