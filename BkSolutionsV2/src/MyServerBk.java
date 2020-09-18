@@ -1,11 +1,14 @@
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
+import comunicacao.UserHardwares;
 import modelo.Cliente;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
-
 	private ServerCoreBK server;
+	private static HashMap<String, UserHardwares> userHardwares = new HashMap<String, UserHardwares>();
+	
 
 	public MyServerBk(int port) {
 		super();
