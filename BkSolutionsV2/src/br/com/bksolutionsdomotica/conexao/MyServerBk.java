@@ -1,3 +1,4 @@
+package br.com.bksolutionsdomotica.conexao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
