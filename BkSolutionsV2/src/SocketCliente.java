@@ -61,25 +61,25 @@ public class SocketCliente {
 		return stringBuilder.toString();
 	}
 
-	public void sendObject(Object obj) throws IOException {
-		if (obj != null) {
-				outObj = new ObjectOutputStream(socket.getOutputStream());
-				outObj.writeObject(obj);
-				outObj.flush();
-				outObj = null;
-			
-		}
-	}
+//	public void sendObject(Object obj) throws IOException {
+//		if (obj != null) {
+//				outObj = new ObjectOutputStream(socket.getOutputStream());
+//				outObj.writeObject(obj);
+//				outObj.flush();
+//				outObj = null;
+//			
+//		}
+//	}
 	
-	public Object objectReceiver() throws IOException, ClassNotFoundException {
-		Object obj = null;
-		if (inObj != null) {
-			while (inObj.available() > -1) {
-				obj = inObj.readObject();
-			}
-		}
-		return obj;
-	}
+//	public Object objectReceiver() throws IOException, ClassNotFoundException {
+//		Object obj = null;
+//		if (inObj != null) {
+//			while (inObj.available() > -1) {
+//				obj = inObj.readObject();
+//			}
+//		}
+//		return obj;
+//	}
 
 	public Cliente getCliente() {
 		return cliente;

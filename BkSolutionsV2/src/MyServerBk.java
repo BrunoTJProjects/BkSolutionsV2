@@ -8,7 +8,6 @@ import modelo.Cliente;
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	private ServerCoreBK server;
 	private static HashMap<String, UserHardwares> userHardwares = new HashMap<String, UserHardwares>();
-	
 
 	public MyServerBk(int port) {
 		super();
@@ -23,31 +22,28 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	}
 
 	@Override
-	public Cliente onLoginRequest(SocketCliente socketCliente)
-			throws ClassNotFoundException, SQLException, IOException {
+	public Cliente onSignIn(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException {
 		System.out.println("Solicitaçao de Login");
 		Cliente cliente = null;
 		cliente = server.clienteLogado("bruno.melo@tcm10.com.br", "8aB1yGj4");
-		try {
-			socketCliente.sendObject(cliente);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		server.enviaComando(socketCliente, "Comando para enviado de: " + cliente.getNome());
-
 		return cliente;
 	}
 
 	@Override
+	public Cliente onSignOut(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void removeSocket(SocketCliente socketCliente) throws IOException {
-		server.removeSocketCliente(socketCliente);
+//		server.removeSocketCliente(socketCliente);
 	}
 
 	@Override
 	public void onCommandReceveived(SocketCliente sc, String stringRecebida) throws IOException {
-		System.out.println("Cliente: " + sc.getCliente().getNome() + "/ comando recebido: " + stringRecebida);
+		System.out.println("Cliente: " + sc.getCliente() + "/ comando recebido: " + stringRecebida);
 		server.enviaComando(sc, stringRecebida);
 	}
-
 }
