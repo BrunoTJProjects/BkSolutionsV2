@@ -1,4 +1,5 @@
 package br.com.bksolutionsdomotica.conexao;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class SocketCliente {
 //			
 //		}
 //	}
-	
+
 //	public Object objectReceiver() throws IOException, ClassNotFoundException {
 //		Object obj = null;
 //		if (inObj != null) {
@@ -88,6 +89,14 @@ public class SocketCliente {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public boolean isHarware() {
+		return isHarware;
+	}
+
+	public void setHarware(boolean isHarware) {
+		this.isHarware = isHarware;
 	}
 
 }

@@ -7,23 +7,35 @@ import br.com.bksolutionsdomotica.conexao.SocketCliente;
 
 public class UserHardwares {
 
-	private List<SocketCliente> inputsClient = new ArrayList<SocketCliente>();  //guarda a lista de Buffered Writers conectados ao Servidor
-	private HashMap<String, JSONHardware> hardwares = new HashMap<String, JSONHardware>(); //guarda a lista de Jsons e Buffereds Writers organizados pelo MAC das Placas
+	private List<SocketCliente> clientesUser = new ArrayList<SocketCliente>();  //guarda a lista de Buffered Writers conectados ao Servidor
+	private HashMap<String, JSONHardware> clientesHardware = new HashMap<String, JSONHardware>(); //guarda a lista de Jsons e Buffereds Writers organizados pelo MAC das Placas
 
-//	public List<BufferedWriter> getInputsClient() {
-//		return inputsClient;
+//	public List<SocketCliente> getClientesUser() {
+//		return clientesUser;
 //	}
 //
-//	public void setInputsClient(List<BufferedWriter> inputsClient) {
-//		this.inputsClient = inputsClient;
+//	public void setClientesUser(List<SocketCliente> clientesUser) {
+//		this.clientesUser = clientesUser;
 //	}
-
-	public HashMap<String, JSONHardware> getHardwares() {
-		return hardwares;
+//
+//	public HashMap<String, JSONHardware> getClientesHardware() {
+//		return clientesHardware;
+//	}
+//
+//	public void setClientesHardware(HashMap<String, JSONHardware> clientesHardware) {
+//		this.clientesHardware = clientesHardware;
+//	}
+	
+	public boolean containsClienteUser(SocketCliente socketCliente) {
+			return clientesUser.contains(socketCliente);
 	}
-
-	public void setHardwares(HashMap<String, JSONHardware> hardwares) {
-		this.hardwares = hardwares;
+	
+	public void addClienteUser(SocketCliente socketCliente) {
+			clientesUser.add(socketCliente);
 	}
-
+	
+	public void removeClienteUser(SocketCliente socketCliente) {
+			clientesUser.remove(socketCliente);
+	}
+	
 }

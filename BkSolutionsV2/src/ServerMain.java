@@ -1,11 +1,13 @@
 import java.io.IOException;
-import java.util.Scanner;
+
+import br.com.bksolutionsdomotica.conexao.MyServerBk;
 
 public class ServerMain {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
 		
+		@SuppressWarnings("unused")
 		MyServerBk myServerBk = new MyServerBk(58365);
 		
 //		ServidorBkSolutions servidor = new ServidorBkSolutions(58365);

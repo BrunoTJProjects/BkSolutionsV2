@@ -1,20 +1,16 @@
 package comunicacao;
 
-import java.io.BufferedWriter;
-
 import org.json.JSONObject;
 
+import br.com.bksolutionsdomotica.conexao.SocketCliente;
+
 public class JSONHardware {
-	private BufferedWriter hardwareInput = null; // Deixei como publico apenas para retirar as Warnings
-	private JSONObject jsonObj = null; // Deixei como publico apenas para retirar as Warnings
+	private SocketCliente hardClient = null;
+	private JSONObject jsonObj = null;
 
-//	public JSONHardware(JSONObject jsonObj) {
-//		this.jsonObj = jsonObj;
-//	}
-
-	public JSONHardware(BufferedWriter hardwareInput, JSONObject jsonObj) {
+	public JSONHardware(SocketCliente hardClient, JSONObject jsonObj) {
 		super();
-		this.hardwareInput = hardwareInput;
+		this.hardClient = hardClient;
 		this.jsonObj = jsonObj;
 	}
 
@@ -22,21 +18,21 @@ public class JSONHardware {
 		this.jsonObj = jsonObj;
 	}
 
-	public void setJsonAndBufferedWriter(BufferedWriter hardwareInput, JSONObject jsonObj) {
-		this.hardwareInput = hardwareInput;
+	public void setJsonAndBufferedWriter(SocketCliente hardClient, JSONObject jsonObj) {
+		this.hardClient = hardClient;
 		this.jsonObj = jsonObj;
 	}
 
-	public BufferedWriter getHardwareInput() {
-		return hardwareInput;
+	public SocketCliente gethardClient() {
+		return hardClient;
 	}
 
-	public void setHardwareInput(BufferedWriter hardwareInput) {
-		this.hardwareInput = hardwareInput;
+	public void sethardClient(SocketCliente hardClient) {
+		this.hardClient = hardClient;
 	}
 
 	public JSONObject getJsonObj() {
 		return jsonObj;
 	}
-	
+
 }

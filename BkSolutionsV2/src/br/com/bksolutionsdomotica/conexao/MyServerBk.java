@@ -1,8 +1,10 @@
 package br.com.bksolutionsdomotica.conexao;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import comunicacao.JSONHardware;
 import comunicacao.UserHardwares;
 import modelo.Cliente;
 
@@ -55,20 +57,42 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	public static void setUserHardwares(HashMap<String, UserHardwares> userHardwares) {
 		MyServerBk.userHardwares = userHardwares;
 	}
-	
-	private void userGetJSONHardwares(SocketCliente socketCliente) throws ClassNotFoundException, SQLException {
 
-		if (!userHardwares.containsKey(socketCliente.getCliente().getId())) {
-			UserHardwares users = new UserHardwares();
-			users.getInputsClient().add(socketCliente.);
-			userHardwares.put(id, users);
+	private void userGetJSONHardwares(SocketCliente socketCliente) throws ClassNotFoundException, SQLException {
+		int id = socketCliente.getCliente().getId();
+
+		if (!socketCliente.isHarware()) {
+
+			if (!userHardwares.containsKey(id)) {
+				UserHardwares userHard = new UserHardwares();
+				userHard.addClienteUser(socketCliente);
+				userHardwares.put(String.valueOf(id), userHard);
+
+			} else {
+
+				UserHardwares userHard = userHardwares.get(id);
+				if (!userHard.containsClienteUser(socketCliente)) {
+					userHard.addClienteUser(socketCliente);
+				}
+
+			}
 
 		} else {
-			UserHardwares userHard = userHardwares.get(id);
-			if (!userHard.getInputsClient().contains(output)) {
-				userHard.getInputsClient().add(output);
-			}
+				if (!userHardwares.containsKey(id)) {
+					UserHardwares users = new UserHardwares();
+					users.getHardwares().put("Serial desse Hardware", new JSONHardware(output, hardware.getChaves()));
+					userHardwares.put(id, users);
+				} else {
+					UserHardwares userHard = userHardwares.get(id);
+					if (!userHard.getHardwares().containsKey(id_hardware)) {
+						userHard.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
+					} else {
+						userHard.getHardwares().get(id_hardware).setHardwareInput(output);
+					}
+				}
+
 		}
+
 	}
 
 }
