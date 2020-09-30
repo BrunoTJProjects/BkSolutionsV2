@@ -246,34 +246,34 @@ public class ConnectSocket extends Thread {
 
 		if (!userHardwares.containsKey(id)) {
 			UserHardwares users = new UserHardwares();
-			users.getInputsClient().add(output);
+//			users.getInputsClient().add(output);
 			userHardwares.put(id, users);
 
 		} else {
 			UserHardwares userHard = userHardwares.get(id);
-			if (!userHard.getInputsClient().contains(output)) {
-				userHard.getInputsClient().add(output);
-			}
+//			if (!userHard.getInputsClient().contains(output)) {
+//				userHard.getInputsClient().add(output);
+//			}
 		}
 	}
 
 	public void userEraseJSONHardwares() throws ClassNotFoundException, SQLException {
-		if (id != null && userHardwares.containsKey(id)) {
-			UserHardwares userHard = userHardwares.get(id);
-			if (userHard.getInputsClient().contains(output)) {
-				userHard.getInputsClient().remove(output);
-				System.out.println("Conexão existe e foi removida");
-				if (userHard.getInputsClient().isEmpty()) {
-					System.out.println("Essa foi a ultima");
-					if (userHard.getHardwares().isEmpty()) {
-						userHardwares.remove(id);
-						System.out.println("Nenhum mac guardado!");
-						System.out.println("por isso esse userHardware foi eliminado");
-						System.out.println(userHardwares.size());
-					}
-				}
-			}
-		}
+//		if (id != null && userHardwares.containsKey(id)) {
+//			UserHardwares userHard = userHardwares.get(id);
+//			if (userHard.getInputsClient().contains(output)) {
+//				userHard.getInputsClient().remove(output);
+//				System.out.println("Conexão existe e foi removida");
+//				if (userHard.getInputsClient().isEmpty()) {
+//					System.out.println("Essa foi a ultima");
+//					if (userHard.getHardwares().isEmpty()) {
+//						userHardwares.remove(id);
+//						System.out.println("Nenhum mac guardado!");
+//						System.out.println("por isso esse userHardware foi eliminado");
+//						System.out.println(userHardwares.size());
+//					}
+//				}
+//			}
+//		}
 	}
 
 	private void enviaDados(String dados) {
@@ -288,26 +288,26 @@ public class ConnectSocket extends Thread {
 
 	private void userAvisoDeAlteracao(String mac, JSONObject aviso) throws IOException {
 
-		BufferedWriter bufferedWriter = userHardwares.get(id).getHardwares().get(mac).getHardwareInput();
-		if (bufferedWriter != null) {
-			bufferedWriter.write(aviso.toString());
-			bufferedWriter.flush();
-		}
-		aviso.put("mac", mac);	
-		for (BufferedWriter bufferedWriters : userHardwares.get(id).getInputsClient()) {
-			if(output != bufferedWriters)
-			bufferedWriters.write(aviso.toString());
-			bufferedWriters.flush();
-		}
+//		BufferedWriter bufferedWriter = userHardwares.get(id).getHardwares().get(mac).getHardwareInput();
+//		if (bufferedWriter != null) {
+//			bufferedWriter.write(aviso.toString());
+//			bufferedWriter.flush();
+//		}
+//		aviso.put("mac", mac);	
+//		for (BufferedWriter bufferedWriters : userHardwares.get(id).getInputsClient()) {
+//			if(output != bufferedWriters)
+//			bufferedWriters.write(aviso.toString());
+//			bufferedWriters.flush();
+//		}
 
 	}
 
 	private void boardAvisoDeAlteracao(JSONObject aviso) throws IOException {
-		aviso.put("mac", id_hardware);		
-		for (BufferedWriter bufferedWriter : userHardwares.get(id).getInputsClient()) {
-			bufferedWriter.write(aviso.toString());
-			bufferedWriter.flush();
-		}
+//		aviso.put("mac", id_hardware);		
+//		for (BufferedWriter bufferedWriter : userHardwares.get(id).getInputsClient()) {
+//			bufferedWriter.write(aviso.toString());
+//			bufferedWriter.flush();
+//		}
 	}
 
 	private String recebeDados() {
@@ -334,32 +334,32 @@ public class ConnectSocket extends Thread {
 	}
 
 	private void boardGetJSONHardwares() throws ClassNotFoundException, SQLException {
-		id = String.valueOf(hardware.getCliente());
-		if (!userHardwares.containsKey(id)) {
-			UserHardwares users = new UserHardwares();
-			users.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
-			userHardwares.put(id, users);
-		} else {
-			UserHardwares userHard = userHardwares.get(id);
-			if (!userHard.getHardwares().containsKey(id_hardware)) {
-				userHard.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
-			} else {
-				userHard.getHardwares().get(id_hardware).setHardwareInput(output);
-			}
-		}
+//		id = String.valueOf(hardware.getCliente());
+//		if (!userHardwares.containsKey(id)) {
+//			UserHardwares users = new UserHardwares();
+//			users.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
+//			userHardwares.put(id, users);
+//		} else {
+//			UserHardwares userHard = userHardwares.get(id);
+//			if (!userHard.getHardwares().containsKey(id_hardware)) {
+//				userHard.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
+//			} else {
+//				userHard.getHardwares().get(id_hardware).setHardwareInput(output);
+//			}
+//		}
 	}
 
 	private void boardEraseJSONHardwares() throws ClassNotFoundException, SQLException {
-		if (id != null && userHardwares.containsKey(id)) {
-			UserHardwares userHard = userHardwares.get(id);
-			if (userHard.getHardwares().containsKey(id_hardware) && output == userHard.getHardwares().get(id_hardware).getHardwareInput()) {
-				hardware.setChaves(userHard.getHardwares().get(id_hardware).getJsonObj());
-				userHard.getHardwares().remove(id_hardware);
-				if (userHard.getHardwares().isEmpty() && userHard.getInputsClient().isEmpty()) {
-					userHardwares.remove(id);
-				}
-			}
-		}
+//		if (id != null && userHardwares.containsKey(id)) {
+//			UserHardwares userHard = userHardwares.get(id);
+//			if (userHard.getHardwares().containsKey(id_hardware) && output == userHard.getHardwares().get(id_hardware).getHardwareInput()) {
+//				hardware.setChaves(userHard.getHardwares().get(id_hardware).getJsonObj());
+//				userHard.getHardwares().remove(id_hardware);
+//				if (userHard.getHardwares().isEmpty() && userHard.getInputsClient().isEmpty()) {
+//					userHardwares.remove(id);
+//				}
+//			}
+//		}
 	}
 
 	/*private void loop() {

@@ -18,9 +18,9 @@ public class UserHardwares {
 //		this.clientesUser = clientesUser;
 //	}
 //
-//	public HashMap<String, JSONHardware> getClientesHardware() {
-//		return clientesHardware;
-//	}
+	public HashMap<String, JSONHardware> getHardwares() {
+		return clientesHardware;
+	}
 //
 //	public void setClientesHardware(HashMap<String, JSONHardware> clientesHardware) {
 //		this.clientesHardware = clientesHardware;

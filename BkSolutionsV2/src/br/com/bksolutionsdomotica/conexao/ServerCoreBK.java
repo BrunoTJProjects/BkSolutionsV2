@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import conexaobd.BKClienteDAO;
 import modelo.Cliente;
 
@@ -133,9 +135,26 @@ public class ServerCoreBK {
 
 			try {
 				String string = sc.commandReceiver();
-
+				
 				if (string != null && !string.isEmpty()) {
-					interfaceCommand.onCommandReceveived(sc, string);
+					
+					JSONObject jsonObject = new JSONObject(string);
+					
+					String tipoSolicitacao = (String) jsonObject.get("teste");
+					
+					switch(string) {
+					case "LOGAR\r\n":
+						sc.setCliente(interfaceCommand.onRequestSignIn(sc));
+						break;
+					case "DESLOGAR\r\n":
+						interfaceCommand.onRequestSignOut(sc);
+						break;
+					case "DESCONECTAR\r\n":
+						interfaceCommand.onRequestDisconnectSocket(sc);
+						break;
+					default:
+						interfaceCommand.onCommandReceveived(sc, string);
+					}
 				}
 				enviarComando(sc);
 
@@ -166,13 +185,9 @@ public class ServerCoreBK {
 
 	public interface InterfaceCommand {
 		
-		public Cliente onSignIn(SocketCliente socketCliente)
-				throws ClassNotFoundException, SQLException, IOException;
-		public Cliente onSignOut(SocketCliente socketCliente)
-				throws ClassNotFoundException, SQLException, IOException;
-
-		public void removeSocket(SocketCliente socketCliente) throws IOException;
-
+		public Cliente onRequestSignIn(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException;
+		public Cliente onRequestSignOut(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException;
+		public void onRequestDisconnectSocket(SocketCliente socketCliente) throws IOException;
 		public void onCommandReceveived(SocketCliente socketCliente, String stringRecebida) throws IOException;
 
 	}
