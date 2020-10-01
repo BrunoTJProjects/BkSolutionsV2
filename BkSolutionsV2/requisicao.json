@@ -1,0 +1,15 @@
+{
+	"requisicao": {
+		"tipo": "login",
+		"email": "bruno.melo@tcm10.com.br",
+		"password": "8aB1yGj4",
+		"session": "8H5F4FD7H9KLLHGJJhfftgbhOI679888967",
+		"dados": {
+			"tipo": "setKey",
+			"serial": "4892359023702090",
+			"mac": "66:85:a1:d4:76:6c",
+			"chave": "rele1",
+			"valor": "1"
+		}
+	}
+}

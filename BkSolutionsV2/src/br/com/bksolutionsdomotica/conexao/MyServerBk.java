@@ -46,7 +46,7 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
 	@Override
 	public void onCommandReceveived(SocketCliente sc, String stringRecebida) throws IOException {
-		System.out.println("Cliente: " + sc.getCliente().getNome() + "/ comando recebido: " + stringRecebida);
+		System.out.println("Cliente: " + sc.getCliente() + "/ comando recebido: " + stringRecebida);
 		server.enviaComando(sc, stringRecebida);
 	}
 
