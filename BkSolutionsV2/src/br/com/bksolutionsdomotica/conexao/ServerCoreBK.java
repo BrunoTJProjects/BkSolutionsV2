@@ -142,21 +142,19 @@ public class ServerCoreBK {
 					
 //					Requisicao req = (Requisicao) jsonObject.get("requisicao");
 					
-					interfaceCommand.onCommandReceveived(sc, jsonObject.getJSONObject("requisicao").getString("password"));
-					
-//					switch(string) {
-//					case "LOGAR\r\n":
-//						sc.setCliente(interfaceCommand.onRequestSignIn(sc));
-//						break;
-//					case "DESLOGAR\r\n":
-//						interfaceCommand.onRequestSignOut(sc);
-//						break;
-//					case "DESCONECTAR\r\n":
-//						interfaceCommand.onRequestDisconnectSocket(sc);
-//						break;
-//					default:
-//						interfaceCommand.onCommandReceveived(sc, string);
-//					}
+					switch(string) {
+					case "LOGAR\r\n":
+						sc.setCliente(interfaceCommand.onRequestSignIn(sc));
+						break;
+					case "DESLOGAR\r\n":
+						interfaceCommand.onRequestSignOut(sc);
+						break;
+					case "DESCONECTAR\r\n":
+						interfaceCommand.onRequestDisconnectSocket(sc);
+						break;
+					default:
+						interfaceCommand.onCommandReceveived(sc, jsonObject.getJSONObject("requisicao").getString("password"));
+					}
 				}
 				enviarComando(sc);
 
