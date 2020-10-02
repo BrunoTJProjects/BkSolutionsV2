@@ -14,25 +14,20 @@ public class JSONHardware {
 		this.jsonObj = jsonObj;
 	}
 
-	public void setJsonObj(JSONObject jsonObj) {
-		this.jsonObj = jsonObj;
-	}
-
-	public void setJsonAndBufferedWriter(SocketCliente hardClient, JSONObject jsonObj) {
-		this.hardClient = hardClient;
-		this.jsonObj = jsonObj;
-	}
-
-	public SocketCliente gethardClient() {
+	public SocketCliente getHardClient() {
 		return hardClient;
 	}
 
-	public void sethardClient(SocketCliente hardClient) {
+	public void setHardClient(SocketCliente hardClient) {
 		this.hardClient = hardClient;
 	}
 
 	public JSONObject getJsonObj() {
 		return jsonObj;
+	}
+
+	public void setJsonObj(JSONObject jsonObj) {
+		this.jsonObj = jsonObj;
 	}
 
 }

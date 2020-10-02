@@ -1,4 +1,6 @@
-/gson/
-/org/
+/ServerMain.class
 /br/
-/com/
+/comunicacao/
+/conexaobd/
+/modelo/
+/org/
