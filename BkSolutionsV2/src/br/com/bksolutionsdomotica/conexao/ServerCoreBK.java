@@ -130,7 +130,7 @@ public class ServerCoreBK {
 				}
 			}
 		}
-
+		
 		private void runOnce(SocketCliente sc) throws ClassNotFoundException, SQLException {
 
 			try {
@@ -138,23 +138,44 @@ public class ServerCoreBK {
 				
 				if (string != null && !string.isEmpty()) {
 					
-					JSONObject jsonObject = new JSONObject(string);
+					JSONObject jsonObject;
 					
-//					Requisicao req = (Requisicao) jsonObject.get("requisicao");
-					
-					switch(string) {
-					case "LOGAR\r\n":
-						sc.setCliente(interfaceCommand.onRequestSignIn(sc));
-						break;
-					case "DESLOGAR\r\n":
-						interfaceCommand.onRequestSignOut(sc);
-						break;
-					case "DESCONECTAR\r\n":
-						interfaceCommand.onRequestDisconnectSocket(sc);
-						break;
-					default:
-						interfaceCommand.onCommandReceveived(sc, jsonObject.getJSONObject("requisicao").getString("password"));
+					if(JSONObject.isJSONValid(string)) {
+						jsonObject = new JSONObject(string);
+						String tipo = jsonObject.getJSONObject("requisicao").getString("tipo");
+						
+						switch(tipo) {
+						
+						case "login":
+							sc.setCliente(interfaceCommand.onRequestSignIn(sc));
+							break;
+						case "Logout":
+							interfaceCommand.onRequestSignOut(sc);
+							break;
+						case "Desconectar":
+							interfaceCommand.onRequestDisconnectSocket(sc);
+							break;
+						default:
+							interfaceCommand.onCommandReceveived(sc, jsonObject.toString());
+						}
+						
+					} else {
+						
+						switch(string) {
+						case "LOGAR\r\n":
+							sc.setCliente(interfaceCommand.onRequestSignIn(sc));
+							break;
+						case "DESLOGAR\r\n":
+							interfaceCommand.onRequestSignOut(sc);
+							break;
+						case "DESCONECTAR\r\n":
+							interfaceCommand.onRequestDisconnectSocket(sc);
+							break;
+						default:
+							interfaceCommand.onCommandReceveived(sc, string);
+						}
 					}
+
 				}
 				enviarComando(sc);
 

@@ -6,6 +6,16 @@ public class ServerMain {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("1", "Um");
+//		map.put("2", "Dois");
+//		
+//		JSONObject json = new JSONObject(map);
+//		
+//		HashMap<String, Object > map2 = (HashMap<String, Object>) json.toMap();
+//		
+//		System.out.println(map2);
+		
 		new MyServerBk(58365);
 	}
 
