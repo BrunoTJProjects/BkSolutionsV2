@@ -1,9 +1,10 @@
-package comunicacao;
+package br.com.bksolutionsdomotica.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import br.com.bksolutionsdomotica.conexao.SocketCliente;
+
+import br.com.bksolutionsdomotica.servidor.SocketCliente;
 
 public class UserHardwares {
 

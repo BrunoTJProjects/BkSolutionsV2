@@ -1,8 +1,8 @@
-package comunicacao;
+package br.com.bksolutionsdomotica.manager;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexao.SocketCliente;
+import br.com.bksolutionsdomotica.servidor.SocketCliente;
 
 public class JSONHardware {
 	private SocketCliente hardClient = null;

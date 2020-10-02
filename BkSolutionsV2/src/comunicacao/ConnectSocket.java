@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
 import org.json.JSONObject;
+
+import br.com.bksolutionsdomotica.manager.UserHardwares;
 import conexaobd.BKClienteDAO;
 import conexaobd.BKHardwareDAO;
 import modelo.Cliente;

@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-import br.com.bksolutionsdomotica.conexao.MyServerBk;
+import br.com.bksolutionsdomotica.servidor.MyServerBk;
 
 public class ServerMain {
 

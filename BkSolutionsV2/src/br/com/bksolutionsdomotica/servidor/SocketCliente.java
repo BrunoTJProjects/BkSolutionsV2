@@ -1,4 +1,4 @@
-package br.com.bksolutionsdomotica.conexao;
+package br.com.bksolutionsdomotica.servidor;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -93,8 +93,8 @@ public class SocketCliente {
 		return isHarware;
 	}
 
-//	public void setHarware(boolean isHarware) {
-//		this.isHarware = isHarware;
-//	}
+	public void setHarware(boolean isHarware) {
+		this.isHarware = isHarware;
+	}
 
 }

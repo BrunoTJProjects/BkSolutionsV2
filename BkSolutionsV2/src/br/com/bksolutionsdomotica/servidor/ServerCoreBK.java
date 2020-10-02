@@ -1,4 +1,5 @@
-package br.com.bksolutionsdomotica.conexao;
+package br.com.bksolutionsdomotica.servidor;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,40 +19,17 @@ public class ServerCoreBK {
 	private volatile ServerCore serverCore;
 	private volatile List<SocketCliente> socketClientes;
 
-	public ServerCoreBK(int port) {
+	public ServerCoreBK(int port, InterfaceCommand listener) {
 		this.port = port;
 		serverCore = new ServerCore();
+		serverCore.setInterfaceConnectionListener(listener);
 		socketClientes = new ArrayList<SocketCliente>();
 	}
 
 	public void init() throws IOException {
 
 		serverCore.start();
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Socket socket = null;
-				try {
-					serverSocket = new ServerSocket(port);
-					while (true) {
-						socket = serverSocket.accept();
-						onSocketConnected(socket);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println("Erro no Servidor > " + e.getMessage());
-					try {
-						socket.close();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		}).start();
-
-		System.out.println("Servidor ouvindo na porta " + port);
-
+		new Thread(new ServidorBK(serverSocket, port, socketClientes)).start();
 	}
 
 	public void restartThreadServer() {
@@ -78,13 +56,6 @@ public class ServerCoreBK {
 		return cliente;
 	}
 
-	private void onSocketConnected(Socket socket) throws IOException {
-		SocketCliente sc = new SocketCliente(socket);
-		socketClientes.add(sc);
-//		new TimeOut(null, socket).start();
-		System.out.println("cliente connectado/ Total: " + socketClientes.size());
-	}
-
 	public void enviaComando(SocketCliente sc, String command) throws IOException {
 		if (sc != null && command != null && !command.isEmpty()) {
 			serverCore.comando = command;
@@ -93,10 +64,6 @@ public class ServerCoreBK {
 			serverCore.comando = null;
 			serverCore.sc = null;
 		}
-	}
-
-	public void setInterfaceConnectionListener(InterfaceCommand interfaceCommand) {
-		serverCore.setInterfaceConnectionListener(interfaceCommand);
 	}
 
 	public void removeSocketCliente(SocketCliente sc) throws IOException {
@@ -130,22 +97,22 @@ public class ServerCoreBK {
 				}
 			}
 		}
-		
+
 		private void runOnce(SocketCliente sc) throws ClassNotFoundException, SQLException {
 
 			try {
 				String string = sc.commandReceiver();
-				
+
 				if (string != null && !string.isEmpty()) {
-					
+
 					JSONObject jsonObject;
-					
-					if(JSONObject.isJSONValid(string)) {
+
+					if (JSONObject.isJSONValid(string)) {
 						jsonObject = new JSONObject(string);
 						String tipo = jsonObject.getJSONObject("requisicao").getString("tipo");
-						
-						switch(tipo) {
-						
+
+						switch (tipo) {
+
 						case "login":
 							sc.setCliente(interfaceCommand.onRequestSignIn(sc));
 							break;
@@ -158,24 +125,7 @@ public class ServerCoreBK {
 						default:
 							interfaceCommand.onCommandReceveived(sc, jsonObject.toString());
 						}
-						
-					} else {
-						
-						switch(string) {
-						case "LOGAR\r\n":
-							sc.setCliente(interfaceCommand.onRequestSignIn(sc));
-							break;
-						case "DESLOGAR\r\n":
-							interfaceCommand.onRequestSignOut(sc);
-							break;
-						case "DESCONECTAR\r\n":
-							interfaceCommand.onRequestDisconnectSocket(sc);
-							break;
-						default:
-							interfaceCommand.onCommandReceveived(sc, string);
-						}
 					}
-
 				}
 				enviarComando(sc);
 
@@ -205,10 +155,15 @@ public class ServerCoreBK {
 	}
 
 	public interface InterfaceCommand {
-		
-		public Cliente onRequestSignIn(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException;
-		public Cliente onRequestSignOut(SocketCliente socketCliente) throws ClassNotFoundException, SQLException, IOException;
+
+		public Cliente onRequestSignIn(SocketCliente socketCliente)
+				throws ClassNotFoundException, SQLException, IOException;
+
+		public Cliente onRequestSignOut(SocketCliente socketCliente)
+				throws ClassNotFoundException, SQLException, IOException;
+
 		public void onRequestDisconnectSocket(SocketCliente socketCliente) throws IOException;
+
 		public void onCommandReceveived(SocketCliente socketCliente, String stringRecebida) throws IOException;
 
 	}
