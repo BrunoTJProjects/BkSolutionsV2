@@ -25,19 +25,11 @@ public class Cliente extends SocketBase {
 	private String email;
 	private String password;
 	private transient BKClienteDAO clienteDAO;
-	private transient BKHardwareDAO hardwareDAO;
+	private transient BKHardwareDAO hardwareDAO;	
 
-	public Cliente(Socket socket) throws IOException {
+	public Cliente(Socket socket, int id, String nome, String sexo, Date nasc, String rua, String numero, String bairro, String cidade,
+			String estado, String cpf, String email, String password) throws IOException {
 		super(socket);
-		if(clienteDAO == null) {
-			clienteDAO = new BKClienteDAO();
-			hardwareDAO = new BKHardwareDAO();
-		}		
-	}	
-
-	public Cliente(int id, String nome, String sexo, Date nasc, String rua, String numero, String bairro, String cidade,
-			String estado, String cpf, String email, String password) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.sexo = sexo;

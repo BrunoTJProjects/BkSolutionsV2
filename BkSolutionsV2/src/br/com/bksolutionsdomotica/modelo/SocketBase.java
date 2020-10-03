@@ -13,10 +13,6 @@ public class SocketBase {
 	private BufferedWriter out;
 //	private ObjectInputStream inObj;
 //	private ObjectOutputStream outObj;
-	
-	public SocketBase() {
-		
-	}
 
 	public SocketBase(Socket socket) throws IOException {
 		this.socket = socket;

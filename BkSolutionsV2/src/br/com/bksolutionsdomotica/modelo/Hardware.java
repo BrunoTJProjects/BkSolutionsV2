@@ -13,15 +13,8 @@ public class Hardware extends SocketBase {
 	private Modelo modelo;
 	private BKHardwareDAO hardwareDAO;
 
-	public Hardware(Socket socket) throws IOException {
+	public Hardware(Socket socket, String mac, Modelo modelo) throws IOException {
 		super(socket);
-		if (hardwareDAO == null) {
-			hardwareDAO = new BKHardwareDAO();
-		}
-	}
-
-	public Hardware(String mac, Modelo modelo) {
-		super();
 		this.mac = mac;
 		this.modelo = modelo;
 		if (hardwareDAO == null) {
