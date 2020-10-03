@@ -1,31 +1,35 @@
 package br.com.bksolutionsdomotica.manager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.bksolutionsdomotica.servidor.SocketCliente;
+import org.json.JSONObject;
+
+import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.Hardware;
+
 
 public class UserHardwares {
 
-	private List<SocketCliente> clientesUser = new ArrayList<SocketCliente>();
-	private HashMap<SocketCliente, JSONHardware> clientesHardware = new HashMap<SocketCliente, JSONHardware>();
+	private List<Cliente> clientes = new ArrayList<Cliente>();
+	private HashMap<Hardware, JSONObject> hardwares = new HashMap<Hardware, JSONObject>();
 
-	public void addUserApp(SocketCliente socketCliente) {
-		if (!clientesUser.contains(socketCliente)) {
-			clientesUser.add(socketCliente);
+	public void addUserApp(Cliente cliente) {
+		if (!clientes.contains(cliente)) {
+			clientes.add(cliente);
 		}
 	}
 
-	public void removeClienteUser(SocketCliente socketCliente) {
-		clientesUser.remove(socketCliente);
+	public void removeUserApp(Cliente cliente) {
+		clientes.remove(cliente);
 	}
 	
-	public void addUserHard(SocketCliente socketCliente) {
-		if(!clientesHardware.containsKey(socketCliente)) {
-			clientesHardware.put(socketCliente, value)
+	public void addUserHard(Hardware hardware) throws ClassNotFoundException, SQLException {
+		if(!hardwares.containsKey(hardware)) {
+			hardwares.put(hardware, hardware.getChaves());
 		}
-		clientesUser.add(socketCliente);
 }
 
 }

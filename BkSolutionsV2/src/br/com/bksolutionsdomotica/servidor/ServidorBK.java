@@ -5,15 +5,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import br.com.bksolutionsdomotica.modelo.SocketBase;
+
 public class ServidorBK implements Runnable {
 
 	private ServerSocket serverSocket;
 	private int port;
-	private List<SocketCliente> socketClientes;
+	private List<SocketBase> socketClientes;
 
-	public ServidorBK(ServerSocket serverSocket, int port, List<SocketCliente> socketClientes) {
+	public ServidorBK(int port, List<SocketBase> socketClientes) {
 		super();
-		this.serverSocket = serverSocket;
 		this.port = port;
 		this.socketClientes = socketClientes;
 	}
@@ -41,7 +42,7 @@ public class ServidorBK implements Runnable {
 	}
 
 	private void onSocketConnected(Socket socket) throws IOException {
-		SocketCliente sc = new SocketCliente(socket);
+		SocketBase sc = new SocketBase(socket);
 		socketClientes.add(sc);
 //		new TimeOut(null, socket).start();
 		System.out.println("cliente connectado/ Total: " + socketClientes.size());

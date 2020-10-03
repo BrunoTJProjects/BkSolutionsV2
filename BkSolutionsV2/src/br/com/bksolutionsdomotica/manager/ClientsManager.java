@@ -2,8 +2,6 @@ package br.com.bksolutionsdomotica.manager;
 
 import java.util.HashMap;
 
-import br.com.bksolutionsdomotica.servidor.SocketCliente;
-
 public class ClientsManager {
 
 	private static HashMap<Integer, UserHardwares> userHardwares;

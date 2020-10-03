@@ -7,10 +7,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public abstract class SocketBase {
+public class SocketBase {
 	private Socket socket;
 	private BufferedReader in;
 	private BufferedWriter out;
+//	private ObjectInputStream inObj;
+//	private ObjectOutputStream outObj;
+	
+	public SocketBase() {
+		
+	}
 
 	public SocketBase(Socket socket) throws IOException {
 		this.socket = socket;
@@ -51,4 +57,24 @@ public abstract class SocketBase {
 		}
 		return stringBuilder.toString();
 	}
+
+//	public void sendObject(Object obj) throws IOException {
+//		if (obj != null) {
+//			outObj = new ObjectOutputStream(socket.getOutputStream());
+//			outObj.writeObject(obj);
+//			outObj.flush();
+//			outObj = null;
+//
+//		}
+//	}
+//
+//	public Object objectReceiver() throws IOException, ClassNotFoundException {
+//		Object obj = null;
+//		if (inObj != null) {
+//			while (inObj.available() > -1) {
+//				obj = inObj.readObject();
+//			}
+//		}
+//		return obj;
+//	}
 }

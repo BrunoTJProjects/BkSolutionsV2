@@ -1,8 +1,6 @@
 package br.com.bksolutionsdomotica.servidor;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,25 +9,25 @@ import org.json.JSONObject;
 
 import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
 import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class ServerCoreBK {
 	private int port;
 	private boolean threadStart = true;
-	private ServerSocket serverSocket;
 	private volatile ServerCore serverCore;
-	private volatile List<SocketCliente> socketClientes;
+	private volatile List<SocketBase> socketsBase;
 
 	public ServerCoreBK(int port, InterfaceCommand listener) {
 		this.port = port;
 		serverCore = new ServerCore();
 		serverCore.setInterfaceConnectionListener(listener);
-		socketClientes = new ArrayList<SocketCliente>();
+		socketsBase = new ArrayList<SocketBase>();
 	}
 
 	public void init() throws IOException {
 
 		serverCore.start();
-		new Thread(new ServidorBK(serverSocket, port, socketClientes)).start();
+		new Thread(new ServidorBK(port, socketsBase)).start();
 	}
 
 	public void restartThreadServer() {
@@ -56,24 +54,24 @@ public class ServerCoreBK {
 		return cliente;
 	}
 
-	public void enviaComando(SocketCliente sc, String command) throws IOException {
-		if (sc != null && command != null && !command.isEmpty()) {
+	public void enviaComando(SocketBase sb, String command) throws IOException {
+		if (sb != null && command != null && !command.isEmpty()) {
 			serverCore.comando = command;
-			serverCore.sc = sc;
+			serverCore.sb = sb;
 		} else {
 			serverCore.comando = null;
-			serverCore.sc = null;
+			serverCore.sb = null;
 		}
 	}
 
-	public void removeSocketCliente(SocketCliente sc) throws IOException {
+	public void removeSocketBase(SocketBase sc) throws IOException {
 		sc.closeResouces();
-		socketClientes.remove(sc);
+		socketsBase.remove(sc);
 	}
 
 	private class ServerCore extends Thread {
 		private String comando;
-		private SocketCliente sc;
+		private SocketBase sb;
 		private InterfaceCommand interfaceCommand;
 
 		public ServerCore() {
@@ -84,11 +82,11 @@ public class ServerCoreBK {
 		public void run() {
 			while (threadStart) {
 
-				List<SocketCliente> listaTemporaria = new ArrayList<SocketCliente>(socketClientes);
+				List<SocketBase> listaTemporaria = new ArrayList<SocketBase>(socketsBase);
 
-				for (SocketCliente sc : listaTemporaria) {
+				for (SocketBase sb : listaTemporaria) {
 					try {
-						runOnce(sc);
+						runOnce(sb);
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					} catch (SQLException e) {
@@ -98,10 +96,10 @@ public class ServerCoreBK {
 			}
 		}
 
-		private void runOnce(SocketCliente sc) throws ClassNotFoundException, SQLException {
+		private void runOnce(SocketBase sb) throws ClassNotFoundException, SQLException {
 
 			try {
-				String string = sc.commandReceiver();
+				String string = sb.commandReceiver();
 
 				if (string != null && !string.isEmpty()) {
 
@@ -114,20 +112,20 @@ public class ServerCoreBK {
 						switch (tipo) {
 
 						case "login":
-							sc.setCliente(interfaceCommand.onRequestSignIn(sc));
+//							sb.setCliente(interfaceCommand.onRequestSignIn(sb));
 							break;
 						case "Logout":
-							interfaceCommand.onRequestSignOut(sc);
+							interfaceCommand.onRequestSignOut(sb);
 							break;
 						case "Desconectar":
-							interfaceCommand.onRequestDisconnectSocket(sc);
+							interfaceCommand.onRequestDisconnectSocket(sb);
 							break;
 						default:
-							interfaceCommand.onCommandReceveived(sc, jsonObject.toString());
+							interfaceCommand.onCommandReceveived(sb, jsonObject.toString());
 						}
 					}
 				}
-				enviarComando(sc);
+				enviarComando(sb);
 
 			} catch (IOException e) {
 
@@ -136,13 +134,13 @@ public class ServerCoreBK {
 
 		}
 
-		private void enviarComando(SocketCliente sc) throws IOException {
+		private void enviarComando(SocketBase sb) throws IOException {
 			if (comando != null && !comando.isEmpty()) {
-				if (this.sc != null && sc != null) {
-					if (this.sc.equals(sc)) {
-						sc.sendCommand(comando);
+				if (this.sb != null && sb != null) {
+					if (this.sb.equals(sb)) {
+						sb.sendCommand(comando);
 						this.comando = null;
-						this.sc = null;
+						this.sb = null;
 					}
 				}
 			}
@@ -156,15 +154,15 @@ public class ServerCoreBK {
 
 	public interface InterfaceCommand {
 
-		public Cliente onRequestSignIn(SocketCliente socketCliente)
+		public Cliente onRequestSignIn(SocketBase socketBase)
 				throws ClassNotFoundException, SQLException, IOException;
 
-		public Cliente onRequestSignOut(SocketCliente socketCliente)
+		public Cliente onRequestSignOut(SocketBase socketBase)
 				throws ClassNotFoundException, SQLException, IOException;
 
-		public void onRequestDisconnectSocket(SocketCliente socketCliente) throws IOException;
+		public void onRequestDisconnectSocket(SocketBase socketBase) throws IOException;
 
-		public void onCommandReceveived(SocketCliente socketCliente, String stringRecebida) throws IOException;
+		public void onCommandReceveived(SocketBase socketBase, String stringRecebida) throws IOException;
 
 	}
 }

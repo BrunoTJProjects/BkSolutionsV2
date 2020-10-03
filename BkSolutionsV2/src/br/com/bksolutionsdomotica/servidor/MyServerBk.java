@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import br.com.bksolutionsdomotica.manager.UserHardwares;
 import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
@@ -22,72 +23,28 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	}
 
 	@Override
-	public Cliente onRequestSignIn(SocketCliente socketCliente)
-			throws ClassNotFoundException, SQLException, IOException {
-		System.out.println("Solicitaçao de Login");
-		Cliente cliente = null;
-		cliente = server.clienteLogado("bruno.melo@tcm10.com.br", "8aB1yGj4");
-		server.enviaComando(socketCliente, "Comando para enviado de: " + cliente.getNome());
-		return cliente;
-	}
-
-	@Override
-	public Cliente onRequestSignOut(SocketCliente socketCliente)
-			throws ClassNotFoundException, SQLException, IOException {
+	public Cliente onRequestSignIn(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void onRequestDisconnectSocket(SocketCliente socketCliente) throws IOException {
+	public Cliente onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void onCommandReceveived(SocketCliente sc, String stringRecebida) throws IOException {
-		System.out.println("Cliente: " + sc.getCliente() + "/ comando recebido: " + stringRecebida);
-		server.enviaComando(sc, stringRecebida);
+	public void onRequestDisconnectSocket(SocketBase socketBase) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public static HashMap<String, UserHardwares> getUserHardwares() {
-		return userHardwares;
+	@Override
+	public void onCommandReceveived(SocketBase socketBase, String stringRecebida) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public static void setUserHardwares(HashMap<String, UserHardwares> userHardwares) {
-		MyServerBk.userHardwares = userHardwares;
-	}
-
-	@SuppressWarnings({ "unused", "unlikely-arg-type" })
-	private void userGetJSONHardwares(SocketCliente socketCliente) throws ClassNotFoundException, SQLException {
-		int id = socketCliente.getCliente().getId();
-
-		if (!socketCliente.isHarware()) {
-
-//			if (!userHardwares.containsKey(id)) {
-//				UserHardwares userHard = new UserHardwares();
-//				userHard.addClienteUser(socketCliente);
-//				userHardwares.put(String.valueOf(id), userHard);
-//			} else {
-//				UserHardwares userHard = userHardwares.get(id);
-//				if (!userHard.containsClienteUser(socketCliente)) {
-//					userHard.addClienteUser(socketCliente);
-//				}
-//			}
-		} else {
-//			if (!userHardwares.containsKey(id)) {
-//				UserHardwares users = new UserHardwares();
-//				users.getHardwares().put("Serial desse Hardware", new JSONHardware(output, hardware.getChaves()));
-//				userHardwares.put(id, users);
-//			} else {
-//				UserHardwares userHard = userHardwares.get(id);
-//				if (!userHard.getHardwares().containsKey(id_hardware)) {
-//					userHard.getHardwares().put(id_hardware, new JSONHardware(output, hardware.getChaves()));
-//				} else {
-//					userHard.getHardwares().get(id_hardware).setHardwareInput(output);
-//				}
-//			}
-
-		}
-	}
+	
+	
 }

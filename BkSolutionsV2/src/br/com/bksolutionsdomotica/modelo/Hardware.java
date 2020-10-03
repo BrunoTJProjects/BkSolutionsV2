@@ -1,21 +1,32 @@
 package br.com.bksolutionsdomotica.modelo;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 
 import org.json.JSONObject;
 
 import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
-public class Hardware {
-
+public class Hardware extends SocketBase {
 	private String mac;
 	private Modelo modelo;
 	private BKHardwareDAO hardwareDAO;
 
+	public Hardware(Socket socket) throws IOException {
+		super(socket);
+		if (hardwareDAO == null) {
+			hardwareDAO = new BKHardwareDAO();
+		}
+	}
+
 	public Hardware(String mac, Modelo modelo) {
+		super();
 		this.mac = mac;
 		this.modelo = modelo;
-		hardwareDAO = new BKHardwareDAO();		
+		if (hardwareDAO == null) {
+			hardwareDAO = new BKHardwareDAO();
+		}
 	}
 
 	public String getMac() {
@@ -38,7 +49,7 @@ public class Hardware {
 		JSONObject dados = hardwareDAO.getChaves(this);
 		return dados;
 	}
-	
+
 	public synchronized JSONObject getChaves(String nada) throws SQLException, ClassNotFoundException {
 		JSONObject dados = hardwareDAO.getChaves(this);
 		return dados;
@@ -58,7 +69,7 @@ public class Hardware {
 		int linhasafetadas = hardwareDAO.setChave(this, chave, valor);
 		return linhasafetadas;
 	}
-	
+
 	public synchronized int getCliente() throws SQLException, ClassNotFoundException {
 		int dados = hardwareDAO.getCliente(this);
 		return dados;

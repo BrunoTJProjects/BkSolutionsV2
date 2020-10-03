@@ -1,6 +1,7 @@
 package br.com.bksolutionsdomotica.modelo;
 
-import java.io.Serializable;
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.json.JSONObject;
 import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
 import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
-public class Cliente implements Serializable{
+public class Cliente extends SocketBase {
 	private int id;
 	private String nome;
 	private String sexo;
@@ -26,9 +27,13 @@ public class Cliente implements Serializable{
 	private transient BKClienteDAO clienteDAO;
 	private transient BKHardwareDAO hardwareDAO;
 
-	public Cliente() {
-
-	}
+	public Cliente(Socket socket) throws IOException {
+		super(socket);
+		if(clienteDAO == null) {
+			clienteDAO = new BKClienteDAO();
+			hardwareDAO = new BKHardwareDAO();
+		}		
+	}	
 
 	public Cliente(int id, String nome, String sexo, Date nasc, String rua, String numero, String bairro, String cidade,
 			String estado, String cpf, String email, String password) {
@@ -45,9 +50,13 @@ public class Cliente implements Serializable{
 		this.cpf = cpf;
 		this.email = email;
 		this.password = password;
-		clienteDAO = new BKClienteDAO();
-		hardwareDAO = new BKHardwareDAO();
+		if(clienteDAO == null) {
+			clienteDAO = new BKClienteDAO();
+			hardwareDAO = new BKHardwareDAO();
+		}	
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -144,9 +153,9 @@ public class Cliente implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public int setChave(String mac, String chave, String valor) throws ClassNotFoundException, SQLException {
-		int linhasafetadas = clienteDAO.setChave(this, hardwareDAO.getHardware(mac), chave, valor);	
+		int linhasafetadas = clienteDAO.setChave(this, hardwareDAO.getHardware(mac), chave, valor);
 		return linhasafetadas;
 	}
 
@@ -159,7 +168,7 @@ public class Cliente implements Serializable{
 		int linhasafetadas = clienteDAO.excluirChave(this, hardwareDAO.getHardware(mac), chave);
 		return linhasafetadas;
 	}
-	
+
 	public int setChaves(String mac, JSONObject jsonObj) throws ClassNotFoundException, SQLException {
 		int linhasafetadas = clienteDAO.setChaves(this, hardwareDAO.getHardware(mac), jsonObj);
 		return linhasafetadas;
@@ -169,7 +178,7 @@ public class Cliente implements Serializable{
 		JSONObject jsonObj = clienteDAO.getChaves(this, hardwareDAO.getHardware(mac));
 		return jsonObj;
 	}
-	
+
 	public List<Hardware> getHardwares() throws ClassNotFoundException, SQLException {
 		List<Hardware> hardwares = clienteDAO.getHardwares(this);
 		return hardwares;
