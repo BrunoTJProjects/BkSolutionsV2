@@ -1,4 +1,4 @@
-package modelo;
+package br.com.bksolutionsdomotica.modelo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import conexaobd.BKClienteDAO;
-import conexaobd.BKHardwareDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
 public class Cliente implements Serializable{
 	private int id;

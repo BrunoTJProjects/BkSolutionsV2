@@ -7,27 +7,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.SocketBase;
 
-public class SocketCliente {
-
-	private boolean isHarware;
+public class SocketCliente extends Cliente,{
+	
 	private Cliente cliente;
-	private Socket socket;
-	private BufferedReader in;
-	private BufferedWriter out;
 //	private ObjectInputStream inObj;
 //	private ObjectOutputStream outObj;
 
 	public SocketCliente(Socket socket) throws IOException {
-		this.socket = socket;
-		if (socket != null) {
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//			inObj = new ObjectInputStream(socket.getInputStream());
-//			outObj = new ObjectOutputStream(socket.getOutputStream());
-		}
+		super(socket);		
 	}
+
+
+
+
 
 	public void closeResouces() throws IOException {
 		if (in != null) {

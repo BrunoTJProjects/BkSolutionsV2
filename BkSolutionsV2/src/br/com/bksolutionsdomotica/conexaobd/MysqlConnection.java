@@ -1,4 +1,4 @@
-package conexaobd;
+package br.com.bksolutionsdomotica.conexaobd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

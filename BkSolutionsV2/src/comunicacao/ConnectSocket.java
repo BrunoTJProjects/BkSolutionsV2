@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import org.json.JSONObject;
 
+import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 import br.com.bksolutionsdomotica.manager.UserHardwares;
-import conexaobd.BKClienteDAO;
-import conexaobd.BKHardwareDAO;
-import modelo.Cliente;
-import modelo.Hardware;
+import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.Hardware;
 
 public class ConnectSocket extends Thread {
 	private Socket socket = null;

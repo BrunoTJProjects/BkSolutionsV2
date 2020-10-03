@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import conexaobd.BKClienteDAO;
-import modelo.Cliente;
+import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
+import br.com.bksolutionsdomotica.modelo.Cliente;
 
 public class ServerCoreBK {
 	private int port;

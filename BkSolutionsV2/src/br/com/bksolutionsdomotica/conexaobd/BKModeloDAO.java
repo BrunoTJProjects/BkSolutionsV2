@@ -1,4 +1,4 @@
-package conexaobd;
+package br.com.bksolutionsdomotica.conexaobd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Modelo;
+import br.com.bksolutionsdomotica.modelo.Modelo;
 
 public class BKModeloDAO {
 

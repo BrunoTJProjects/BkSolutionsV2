@@ -1,10 +1,10 @@
-package modelo;
+package br.com.bksolutionsdomotica.modelo;
 
 import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import conexaobd.BKHardwareDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
 public class Hardware {
 

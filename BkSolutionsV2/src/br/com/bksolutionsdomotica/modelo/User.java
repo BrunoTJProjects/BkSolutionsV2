@@ -1,9 +1,9 @@
-package modelo;
+package br.com.bksolutionsdomotica.modelo;
 
 import java.sql.Date;
 
-import conexaobd.BKClienteDAO;
-import conexaobd.BKHardwareDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
 @SuppressWarnings("unused")
 public class User {

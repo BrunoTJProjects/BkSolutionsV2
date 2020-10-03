@@ -1,4 +1,4 @@
-package modelo;
+package br.com.bksolutionsdomotica.modelo;
 
 public class Modelo {
 	private int id;

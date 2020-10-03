@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import br.com.bksolutionsdomotica.manager.UserHardwares;
-import modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.Cliente;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
@@ -64,16 +64,16 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
 		if (!socketCliente.isHarware()) {
 
-			if (!userHardwares.containsKey(id)) {
-				UserHardwares userHard = new UserHardwares();
-				userHard.addClienteUser(socketCliente);
-				userHardwares.put(String.valueOf(id), userHard);
-			} else {
-				UserHardwares userHard = userHardwares.get(id);
-				if (!userHard.containsClienteUser(socketCliente)) {
-					userHard.addClienteUser(socketCliente);
-				}
-			}
+//			if (!userHardwares.containsKey(id)) {
+//				UserHardwares userHard = new UserHardwares();
+//				userHard.addClienteUser(socketCliente);
+//				userHardwares.put(String.valueOf(id), userHard);
+//			} else {
+//				UserHardwares userHard = userHardwares.get(id);
+//				if (!userHard.containsClienteUser(socketCliente)) {
+//					userHard.addClienteUser(socketCliente);
+//				}
+//			}
 		} else {
 //			if (!userHardwares.containsKey(id)) {
 //				UserHardwares users = new UserHardwares();

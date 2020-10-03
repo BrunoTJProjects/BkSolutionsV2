@@ -1,4 +1,4 @@
-package conexaobd;
+package br.com.bksolutionsdomotica.conexaobd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import modelo.Hardware;
+import br.com.bksolutionsdomotica.modelo.Hardware;
 
 public class BKHardwareDAO {
 
