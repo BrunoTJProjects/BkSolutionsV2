@@ -10,8 +10,17 @@ import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 
 public class Hardware extends SocketBase {
 	private String mac;
+	private String serial;
 	private Modelo modelo;
 	private BKHardwareDAO hardwareDAO;
+	
+	public Hardware(String mac, Modelo modelo) {
+		this.mac = mac;
+		this.modelo = modelo;
+		if (hardwareDAO == null) {
+			hardwareDAO = new BKHardwareDAO();
+		}
+	}
 
 	public Hardware(Socket socket, String mac, Modelo modelo) throws IOException {
 		super(socket);
@@ -20,6 +29,14 @@ public class Hardware extends SocketBase {
 		if (hardwareDAO == null) {
 			hardwareDAO = new BKHardwareDAO();
 		}
+	}	
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public void setSerial(String serial) {
+		this.serial = serial;
 	}
 
 	public String getMac() {
