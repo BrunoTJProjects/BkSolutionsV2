@@ -28,8 +28,11 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	@Override
 	public void onRequestSignIn(SocketBase socketBase, String deviceType, String login, String password)
 			throws ClassNotFoundException, SQLException, IOException {
+		
 			switch(deviceType) {
+			
 			case ServerCoreBK.TYPE_HARDWARE:
+				
 				BKHardwareDAO bkHardwareDAO = new BKHardwareDAO();
 				Hardware hardware = bkHardwareDAO.getHardware(login, password);
 				if(hardware != null) {
