@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
+import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
 import br.com.bksolutionsdomotica.manager.UserHardwares;
-import br.com.bksolutionsdomotica.modelo.Cliente;
+import br.com.bksolutionsdomotica.modelo.Hardware;
 import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
@@ -23,28 +26,35 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	}
 
 	@Override
-	public Cliente onRequestSignIn(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public void onRequestSignIn(SocketBase socketBase, String deviceType, String login, String password)
+			throws ClassNotFoundException, SQLException, IOException {
+			switch(deviceType) {
+			case ServerCoreBK.TYPE_HARDWARE:
+				BKHardwareDAO bkHardwareDAO = new BKHardwareDAO();
+				Hardware hardware = bkHardwareDAO.getHardware(login, password);
+				if(hardware != null) {
+					hardware.setSocket(socketBase.getSocket());
+				}
+				
+				
+				
+			}
+
+		
 	}
 
 	@Override
-	public Cliente onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onRequestDisconnectSocket(SocketBase socketBase) throws IOException {
+	public void onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onCommandReceveived(SocketBase socketBase, String stringRecebida) throws IOException {
+	public void onCommandReceveived(SocketBase socketBase, JSONObject jsonObject) throws IOException {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
-	
+
 }

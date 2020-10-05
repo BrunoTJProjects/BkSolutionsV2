@@ -1,6 +1,6 @@
 {
 	"requisicao": {
-		"tipo": "login",
+		"tipo": "login|logout",
 		"deviceType": "hardware",
 		"login": "bruno.melo@tcm10.com.br",
 		"password": "8aB1yGj4",

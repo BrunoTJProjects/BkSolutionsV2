@@ -12,6 +12,12 @@ import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class ServerCoreBK {
+	public static final String LOGIN_REQUEST = "login_request";
+	public static final String LOGOUT_REQUEST = "logout_request";
+	
+	public static final String TYPE_CLIENTE = "cliente";
+	public static final String TYPE_HARDWARE = "hardware";
+
 	private int port;
 	private boolean threadStart = true;
 	private volatile ServerCore serverCore;
@@ -111,17 +117,19 @@ public class ServerCoreBK {
 
 						switch (tipo) {
 
-						case "login":
-//							sb.setCliente(interfaceCommand.onRequestSignIn(sb));
+						case LOGIN_REQUEST:
+
+							interfaceCommand.onRequestSignIn(sb, jsonObject.getString("login"),
+									jsonObject.getString("deviceType"), jsonObject.getString("password"));
 							break;
-						case "Logout":
+
+						case LOGOUT_REQUEST:
+
 							interfaceCommand.onRequestSignOut(sb);
 							break;
-						case "Desconectar":
-							interfaceCommand.onRequestDisconnectSocket(sb);
-							break;
+
 						default:
-							interfaceCommand.onCommandReceveived(sb, jsonObject.toString());
+							interfaceCommand.onCommandReceveived(sb, jsonObject);
 						}
 					}
 				}
@@ -154,15 +162,12 @@ public class ServerCoreBK {
 
 	public interface InterfaceCommand {
 
-		public Cliente onRequestSignIn(SocketBase socketBase)
+		public void onRequestSignIn(SocketBase socketBase, String deviceType, String login, String password)
 				throws ClassNotFoundException, SQLException, IOException;
 
-		public Cliente onRequestSignOut(SocketBase socketBase)
-				throws ClassNotFoundException, SQLException, IOException;
+		public void onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException;
 
-		public void onRequestDisconnectSocket(SocketBase socketBase) throws IOException;
-
-		public void onCommandReceveived(SocketBase socketBase, String stringRecebida) throws IOException;
+		public void onCommandReceveived(SocketBase socketBase, JSONObject jsonObject) throws IOException;
 
 	}
 }
