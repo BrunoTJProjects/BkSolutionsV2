@@ -5,12 +5,15 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
+import br.com.bksolutionsdomotica.conexaobd.dao.BKHardwareDAO;
+import br.com.bksolutionsdomotica.manager.ClientsManager;
+import br.com.bksolutionsdomotica.modelo.Hardware;
 import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
 	private ServerCoreBK server;
-//	private static HashMap<String, UserHardwares> userHardwares = new HashMap<String, UserHardwares>();
+	private static ClientsManager gerenciador = new ClientsManager();
 
 	public MyServerBk(int port) {
 		server = new ServerCoreBK(port, this);
@@ -24,8 +27,12 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	@Override
 	public void onHardwareSignIn(SocketBase socketBase, String login, String password)
 			throws ClassNotFoundException, SQLException, IOException {
-		System.out.println("Login Hardware");
-		
+		Hardware.setBkHardwareDAO(new BKHardwareDAO());
+		Hardware hardware = Hardware.getBkHardwareDAO().getHardware(login, password);
+		if(hardware != null) {
+			hardware.setSocketBase(socketBase);
+			hardware.sendCommand(hardware.toString());	
+		}		
 	}
 
 	@Override

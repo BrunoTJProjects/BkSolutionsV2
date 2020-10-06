@@ -2,6 +2,7 @@ package br.com.bksolutionsdomotica.manager;
 
 import java.util.HashMap;
 
+import br.com.bksolutionsdomotica.conexaobd.dao.BKHardwareDAO;
 import br.com.bksolutionsdomotica.modelo.Cliente;
 
 public class ClientsManager {
@@ -20,22 +21,22 @@ public class ClientsManager {
 			userHardwares.put(id, userHard);
 		} else {
 			UserHardwares userHard = userHardwares.get(id);
-			if (!userHard.containsClienteUser(sc)) {
-				userHard.addUserApp(sc);
+			if (!userHard.containsClienteUser(cliente)) {
+				userHard.addUserApp(cliente);
 			}
 		}
 	}
 	
-	private void addUserHard(SocketCliente sc) {
-		int id = sc.getCliente().getId();
+	private void addUserHard(Cliente cliente) {
+		int id = cliente.getId();
 		if (!userHardwares.containsKey(id)) {
 			UserHardwares userHard = new UserHardwares();
-			userHard.addUserApp(sc);
+			userHard.addUserApp(cliente);
 			userHardwares.put(id, userHard);
 		} else {
 			UserHardwares userHard = userHardwares.get(id);
-			if (!userHard.containsClienteUser(sc)) {
-				userHard.addUserApp(sc);
+			if (!userHard.containsClienteUser(cliente)) {
+				userHard.addUserApp(cliente);
 			}
 		}
 		

@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
-import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
+import br.com.bksolutionsdomotica.conexaobd.dao.BKClienteDAO;
+import br.com.bksolutionsdomotica.conexaobd.dao.BKHardwareDAO;
 import br.com.bksolutionsdomotica.manager.UserHardwares;
 import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.Hardware;
