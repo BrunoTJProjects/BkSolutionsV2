@@ -26,6 +26,31 @@ public class Cliente extends SocketBase {
 	private String password;
 	private transient BKClienteDAO clienteDAO;
 	private transient BKHardwareDAO hardwareDAO;	
+	
+	
+
+	public Cliente(int id, String nome, String sexo, Date nasc, String rua, String numero, String bairro, String cidade,
+			String estado, String cpf, String email, String password) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.nasc = nasc;
+		this.rua = rua;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cpf = cpf;
+		this.email = email;
+		this.password = password;
+		if(clienteDAO == null) {
+			clienteDAO = new BKClienteDAO();
+			hardwareDAO = new BKHardwareDAO();
+		}	
+	}
+
+
 
 	public Cliente(Socket socket, int id, String nome, String sexo, Date nasc, String rua, String numero, String bairro, String cidade,
 			String estado, String cpf, String email, String password) throws IOException {
@@ -146,28 +171,28 @@ public class Cliente extends SocketBase {
 		this.password = password;
 	}
 
-	public int setChave(String mac, String chave, String valor) throws ClassNotFoundException, SQLException {
-		int linhasafetadas = clienteDAO.setChave(this, hardwareDAO.getHardware(mac), chave, valor);
+	public int setChave(String mac, String serial, String chave, String valor) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = clienteDAO.setChave(this, hardwareDAO.getHardware(mac, serial), chave, valor);
 		return linhasafetadas;
 	}
 
-	public String getChave(String mac, String chave) throws ClassNotFoundException, SQLException {
-		String valor = clienteDAO.getChave(this, hardwareDAO.getHardware(mac), chave);
+	public String getChave(String mac, String serial, String chave) throws ClassNotFoundException, SQLException {
+		String valor = clienteDAO.getChave(this, hardwareDAO.getHardware(mac, serial), chave);
 		return valor;
 	}
 
-	public int excluirChave(String mac, String chave) throws ClassNotFoundException, SQLException {
-		int linhasafetadas = clienteDAO.excluirChave(this, hardwareDAO.getHardware(mac), chave);
+	public int excluirChave(String mac, String serial, String chave) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = clienteDAO.excluirChave(this, hardwareDAO.getHardware(mac, serial), chave);
 		return linhasafetadas;
 	}
 
-	public int setChaves(String mac, JSONObject jsonObj) throws ClassNotFoundException, SQLException {
-		int linhasafetadas = clienteDAO.setChaves(this, hardwareDAO.getHardware(mac), jsonObj);
+	public int setChaves(String mac, String serial, JSONObject jsonObj) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = clienteDAO.setChaves(this, hardwareDAO.getHardware(mac, serial), jsonObj);
 		return linhasafetadas;
 	}
 
-	public JSONObject getChaves(String mac) throws ClassNotFoundException, SQLException {
-		JSONObject jsonObj = clienteDAO.getChaves(this, hardwareDAO.getHardware(mac));
+	public JSONObject getChaves(String mac, String serial) throws ClassNotFoundException, SQLException {
+		JSONObject jsonObj = clienteDAO.getChaves(this, hardwareDAO.getHardware(mac, serial));
 		return jsonObj;
 	}
 

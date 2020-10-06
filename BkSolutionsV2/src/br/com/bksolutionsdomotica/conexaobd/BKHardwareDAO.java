@@ -17,23 +17,23 @@ public class BKHardwareDAO {
 
 	}
 
-//	public synchronized List<Hardware> getHardwares() throws SQLException, ClassNotFoundException {
-//		Hardware hardware = null;
-//		List<Hardware> hardwares = new ArrayList<Hardware>();
-//		BKModeloDAO modeloDAO = new BKModeloDAO();
-//		PreparedStatement ps = null;
-//		Connection conexao = MysqlConnection.getConnection();
-//		ps = conexao.prepareStatement("SELECT * FROM bk_solutions.hardware");
-//		ResultSet rs = null;
-//		rs = ps.executeQuery();
-//		while (rs.next()) {
-//			hardware = new Hardware(rs.getString("hardware_mac"), modeloDAO.getModelo(rs.getInt("modelo_modelo_id")));
-//			hardwares.add(hardware);
-//		}
-//		ps.close();
-//		conexao.close();
-//		return hardwares;
-//	}
+	public synchronized List<Hardware> getHardwares() throws SQLException, ClassNotFoundException {
+		Hardware hardware = null;
+		List<Hardware> hardwares = new ArrayList<Hardware>();
+		BKModeloDAO modeloDAO = new BKModeloDAO();
+		PreparedStatement ps = null;
+		Connection conexao = MysqlConnection.getConnection();
+		ps = conexao.prepareStatement("SELECT * FROM bk_solutions.hardware");
+		ResultSet rs = null;
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			hardware = new Hardware(rs.getString("hardware_mac"), modeloDAO.getModelo(rs.getInt("modelo_modelo_id")));
+			hardwares.add(hardware);
+		}
+		ps.close();
+		conexao.close();
+		return hardwares;
+	}
 
 	public synchronized Hardware getHardware(String mac, String serial) throws SQLException, ClassNotFoundException {
 		Hardware hardware = null;
@@ -53,44 +53,44 @@ public class BKHardwareDAO {
 		return hardware;
 	}
 
-//	public synchronized int inserirHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
-//		int linhasafetadas = 0;
-//		PreparedStatement ps = null;
-//		Connection conexao = MysqlConnection.getConnection();
-//		ps = conexao.prepareStatement("INSERT INTO bk_solutions.hardware (hardware_mac, modelo_modelo_id) VALUES(?,?)");
-//		ps.setString(1, hardware.getMac());
-//		ps.setInt(2, hardware.getModelo().getId());
-//		linhasafetadas = ps.executeUpdate();
-//		ps.close();
-//		conexao.close();
-//		return linhasafetadas;
-//	}
+	public synchronized int inserirHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = 0;
+		PreparedStatement ps = null;
+		Connection conexao = MysqlConnection.getConnection();
+		ps = conexao.prepareStatement("INSERT INTO bk_solutions.hardware (hardware_mac, modelo_modelo_id) VALUES(?,?)");
+		ps.setString(1, hardware.getMac());
+		ps.setInt(2, hardware.getModelo().getId());
+		linhasafetadas = ps.executeUpdate();
+		ps.close();
+		conexao.close();
+		return linhasafetadas;
+	}
 
-//	public synchronized int excluirHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
-//		int linhasafetadas = 0;
-//		PreparedStatement ps = null;
-//		Connection conexao = MysqlConnection.getConnection();
-//		ps = (PreparedStatement) conexao.prepareStatement("delete from bk_solutions.hardware where hardware_mac = ?");
-//		ps.setString(1, hardware.getMac());
-//		linhasafetadas = ps.executeUpdate();
-//		ps.close();
-//		conexao.close();
-//		return linhasafetadas;
-//	}
+	public synchronized int excluirHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = 0;
+		PreparedStatement ps = null;
+		Connection conexao = MysqlConnection.getConnection();
+		ps = (PreparedStatement) conexao.prepareStatement("delete from bk_solutions.hardware where hardware_mac = ?");
+		ps.setString(1, hardware.getMac());
+		linhasafetadas = ps.executeUpdate();
+		ps.close();
+		conexao.close();
+		return linhasafetadas;
+	}
 
-//	public synchronized int atualizarHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
-//		int linhasafetadas = 0;
-//		PreparedStatement ps = null;
-//		Connection conexao = MysqlConnection.getConnection();
-//		ps = (PreparedStatement) conexao
-//				.prepareStatement("UPDATE bk_solutions.hardware SET modelo_modelo_id = ? WHERE (hardware_mac = ?)");
-//		ps.setInt(1, hardware.getModelo().getId());
-//		ps.setString(2, hardware.getMac());
-//		linhasafetadas = ps.executeUpdate();
-//		ps.close();
-//		conexao.close();
-//		return linhasafetadas;
-//	}
+	public synchronized int atualizarHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
+		int linhasafetadas = 0;
+		PreparedStatement ps = null;
+		Connection conexao = MysqlConnection.getConnection();
+		ps = (PreparedStatement) conexao
+				.prepareStatement("UPDATE bk_solutions.hardware SET modelo_modelo_id = ? WHERE (hardware_mac = ?)");
+		ps.setInt(1, hardware.getModelo().getId());
+		ps.setString(2, hardware.getMac());
+		linhasafetadas = ps.executeUpdate();
+		ps.close();
+		conexao.close();
+		return linhasafetadas;
+	}
 	
 	public synchronized JSONObject getChaves(Hardware hardware) throws SQLException, ClassNotFoundException {
 		JSONObject jsonObj = new JSONObject();

@@ -7,14 +7,13 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
-import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class ServerCoreBK {
 	public static final String LOGIN_REQUEST = "login_request";
 	public static final String LOGOUT_REQUEST = "logout_request";
-	
+	public static final String COMMAND_REQUEST = "command_request";
+
 	public static final String TYPE_CLIENTE = "cliente";
 	public static final String TYPE_HARDWARE = "hardware";
 
@@ -53,22 +52,22 @@ public class ServerCoreBK {
 		return;
 	}
 
-	public Cliente clienteLogado(String email, String senha) throws ClassNotFoundException, SQLException {
-		Cliente cliente = null;
-		BKClienteDAO clienteDAO = new BKClienteDAO();
-		cliente = clienteDAO.logarCliente(email, senha);
-		return cliente;
-	}
+//	public Cliente clienteLogado(String email, String senha) throws ClassNotFoundException, SQLException {
+//		Cliente cliente = null;
+//		BKClienteDAO clienteDAO = new BKClienteDAO();
+//		cliente = clienteDAO.logarCliente(email, senha);
+//		return cliente;
+//	}
 
-	public void enviaComando(SocketBase sb, String command) throws IOException {
-		if (sb != null && command != null && !command.isEmpty()) {
-			serverCore.comando = command;
-			serverCore.sb = sb;
-		} else {
-			serverCore.comando = null;
-			serverCore.sb = null;
-		}
-	}
+//	public void enviaComando(SocketBase sb, String command) throws IOException {
+//		if (sb != null && command != null && !command.isEmpty()) {
+//			serverCore.comando = command;
+//			serverCore.sb = sb;
+//		} else {
+//			serverCore.comando = null;
+//			serverCore.sb = null;
+//		}
+//	}
 
 	public void removeSocketBase(SocketBase sc) throws IOException {
 		sc.closeResouces();
@@ -112,24 +111,46 @@ public class ServerCoreBK {
 					JSONObject jsonObject;
 
 					if (JSONObject.isJSONValid(string)) {
+
 						jsonObject = new JSONObject(string);
-						String tipo = jsonObject.getJSONObject("requisicao").getString("tipo");
+						JSONObject requisicao = jsonObject.getJSONObject("requisicao");
+						String deviceType = requisicao.getString("deviceType");
+						String tipoReq = requisicao.getString("tipoReq");
 
-						switch (tipo) {
+						if (deviceType != null && !deviceType.isEmpty()) {
+							if (deviceType.equals(TYPE_HARDWARE)) {
 
-						case LOGIN_REQUEST:
+								switch (tipoReq) {
+								case LOGIN_REQUEST:
+									interfaceCommand.onHardwareSignIn(sb, requisicao.getString("login"),
+											requisicao.getString("password"));
+									break;
 
-							interfaceCommand.onRequestSignIn(sb, jsonObject.getString("login"),
-									jsonObject.getString("deviceType"), jsonObject.getString("password"));
-							break;
+								case LOGOUT_REQUEST:
+									interfaceCommand.onHardwareSignOut(sb);
+									break;
 
-						case LOGOUT_REQUEST:
+								case COMMAND_REQUEST:
+									interfaceCommand.onHardwareCommand(sb, requisicao.getJSONObject("dados"));
+									break;
+								}
 
-							interfaceCommand.onRequestSignOut(sb);
-							break;
+							} else if (deviceType.equals(TYPE_CLIENTE)) {
 
-						default:
-							interfaceCommand.onCommandReceveived(sb, jsonObject);
+								switch (tipoReq) {
+								case LOGIN_REQUEST:
+									interfaceCommand.onClienteSignIn(sb, requisicao.getString("login"), requisicao.getString("password"));
+									break;
+
+								case LOGOUT_REQUEST:
+									interfaceCommand.onClienteSignOut(sb);
+									break;
+
+								case COMMAND_REQUEST:
+									interfaceCommand.onClienteCommand(sb, requisicao.getJSONObject("dados"));
+									break;
+								}
+							}
 						}
 					}
 				}
@@ -162,12 +183,19 @@ public class ServerCoreBK {
 
 	public interface InterfaceCommand {
 
-		public void onRequestSignIn(SocketBase socketBase, String deviceType, String login, String password)
+		public void onHardwareSignIn(SocketBase socketBase, String login, String password)
 				throws ClassNotFoundException, SQLException, IOException;
 
-		public void onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException;
+		public void onHardwareSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException;
 
-		public void onCommandReceveived(SocketBase socketBase, JSONObject jsonObject) throws IOException;
+		public void onHardwareCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException;
+
+		public void onClienteSignIn(SocketBase socketBase, String login, String password)
+				throws ClassNotFoundException, SQLException, IOException;
+
+		public void onClienteSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException;
+
+		public void onClienteCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException;
 
 	}
 }

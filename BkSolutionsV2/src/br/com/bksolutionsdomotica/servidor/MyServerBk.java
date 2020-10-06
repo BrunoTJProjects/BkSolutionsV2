@@ -2,19 +2,15 @@ package br.com.bksolutionsdomotica.servidor;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.BKHardwareDAO;
-import br.com.bksolutionsdomotica.manager.UserHardwares;
-import br.com.bksolutionsdomotica.modelo.Hardware;
 import br.com.bksolutionsdomotica.modelo.SocketBase;
 
 public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 
 	private ServerCoreBK server;
-	private static HashMap<String, UserHardwares> userHardwares = new HashMap<String, UserHardwares>();
+//	private static HashMap<String, UserHardwares> userHardwares = new HashMap<String, UserHardwares>();
 
 	public MyServerBk(int port) {
 		server = new ServerCoreBK(port, this);
@@ -26,38 +22,41 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	}
 
 	@Override
-	public void onRequestSignIn(SocketBase socketBase, String deviceType, String login, String password)
+	public void onHardwareSignIn(SocketBase socketBase, String login, String password)
 			throws ClassNotFoundException, SQLException, IOException {
-		
-			switch(deviceType) {
-			
-			case ServerCoreBK.TYPE_HARDWARE:
-				
-				BKHardwareDAO bkHardwareDAO = new BKHardwareDAO();
-				Hardware hardware = bkHardwareDAO.getHardware(login, password);
-				if(hardware != null) {
-					hardware.setSocket(socketBase.getSocket());
-				}
-				
-				
-				
-			}
-
+		System.out.println("Login Hardware");
 		
 	}
 
 	@Override
-	public void onRequestSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
+	public void onHardwareSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Logout Hardware");
 	}
 
 	@Override
-	public void onCommandReceveived(SocketBase socketBase, JSONObject jsonObject) throws IOException {
+	public void onHardwareCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("comm Hardware: " + jsonObject);
 	}
 
-	
+	@Override
+	public void onClienteSignIn(SocketBase socketBase, String login, String password)
+			throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("Login Cliente");
+	}
+
+	@Override
+	public void onClienteSignOut(SocketBase socketBase) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("Logout Cliente");
+	}
+
+	@Override
+	public void onClienteCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException {
+		// TODO Auto-generated method stub
+		System.out.println("comm Cliente");
+	}
 
 }

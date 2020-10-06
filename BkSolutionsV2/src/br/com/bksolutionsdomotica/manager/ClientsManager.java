@@ -2,6 +2,8 @@ package br.com.bksolutionsdomotica.manager;
 
 import java.util.HashMap;
 
+import br.com.bksolutionsdomotica.modelo.Cliente;
+
 public class ClientsManager {
 
 	private static HashMap<Integer, UserHardwares> userHardwares;
@@ -10,11 +12,11 @@ public class ClientsManager {
 		userHardwares = new HashMap<Integer, UserHardwares>();
 	}
 
-	private void addUserApp(SocketCliente sc) {
-		int id = sc.getCliente().getId();
+	private void addUserApp(Cliente cliente) {
+		int id = cliente.getId();
 		if (!userHardwares.containsKey(id)) {
 			UserHardwares userHard = new UserHardwares();
-			userHard.addUserApp(sc);
+			userHard.addUserApp(cliente);
 			userHardwares.put(id, userHard);
 		} else {
 			UserHardwares userHard = userHardwares.get(id);

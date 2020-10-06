@@ -25,14 +25,6 @@ public class SocketBase {
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		}
 	}
-	
-	public void setSocket(Socket socket) {
-		this.socket = socket;
-	}
-	
-	public Socket getSocket() {
-		return socket;
-	}
 
 	public void closeResouces() throws IOException {
 		if (in != null) {
