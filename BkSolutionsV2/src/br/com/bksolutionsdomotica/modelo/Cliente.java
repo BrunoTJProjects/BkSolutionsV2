@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.dao.*;
+import br.com.bksolutionsdomotica.conexaobd.*;
 
 
 public class Cliente {
@@ -175,6 +175,10 @@ public class Cliente {
 	public List<Hardware> getHardwares() throws ClassNotFoundException, SQLException {
 		List<Hardware> hardwares = bkClienteDAO.getHardwares(this);
 		return hardwares;
+	}
+	
+	public void setSocketBase(SocketBase socketBase) {
+		this.socketBase = socketBase;
 	}
 	
 	public void closeResouces() throws IOException {

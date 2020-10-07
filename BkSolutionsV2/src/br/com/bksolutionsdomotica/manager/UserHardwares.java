@@ -10,26 +10,54 @@ import org.json.JSONObject;
 import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.Hardware;
 
-
 public class UserHardwares {
 
 	private List<Cliente> clientes = new ArrayList<Cliente>();
 	private HashMap<Hardware, JSONObject> hardwares = new HashMap<Hardware, JSONObject>();
 
-	public void addUserApp(Cliente cliente) {
+	public void addClientes(Cliente cliente) {
 		if (!clientes.contains(cliente)) {
 			clientes.add(cliente);
 		}
 	}
 
-	public void removeUserApp(Cliente cliente) {
-		clientes.remove(cliente);
+	public void removeCliente(Cliente cliente) {
+		if (clientes.contains(cliente)) {
+			clientes.remove(cliente);
+		}
 	}
 	
-	public void addUserHard(Hardware hardware) throws ClassNotFoundException, SQLException {
-		if(!hardwares.containsKey(hardware)) {
+	public boolean contemCliente(Cliente cliente) {
+		return clientes.contains(cliente);
+	}
+	
+	public boolean naoContemClientes() {
+		return clientes.isEmpty();
+	}
+
+	public void addHardware(Hardware hardware) throws ClassNotFoundException, SQLException {
+		if (!hardwares.containsKey(hardware)) {
 			hardwares.put(hardware, hardware.getChaves());
 		}
-}
+	}
+
+	public void removeHardware(Hardware hardware) {
+		if (hardwares.containsKey(hardware)) {
+			hardwares.remove(hardware);
+		}
+	}
+	
+	public boolean contemHardware(Hardware hardware) {
+		return hardwares.containsKey(hardware);
+	}
+	
+	public boolean naoContemHardwares() {
+		return hardwares.isEmpty();
+	}
+	
+	public JSONObject getJSONChaves(Hardware hardware) {
+		return hardwares.get(hardware);
+		
+	}
 
 }

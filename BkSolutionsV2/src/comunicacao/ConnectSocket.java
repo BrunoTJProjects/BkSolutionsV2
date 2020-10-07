@@ -8,14 +8,15 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
+
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.dao.BKClienteDAO;
-import br.com.bksolutionsdomotica.conexaobd.dao.BKHardwareDAO;
+import br.com.bksolutionsdomotica.conexaobd.BKClienteDAO;
 import br.com.bksolutionsdomotica.manager.UserHardwares;
 import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.Hardware;
 
+@SuppressWarnings("unused")
 public class ConnectSocket extends Thread {
 	private Socket socket = null;
 	private Cliente cliente = null;
@@ -35,7 +36,7 @@ public class ConnectSocket extends Thread {
 		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	@Override
+/*	@Override
 	public void run() {
 		try {
 			th = new TimeOut(this, socket);
@@ -222,7 +223,7 @@ public class ConnectSocket extends Thread {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
+	}*/
 
 	public boolean clienteLogado(String email, String senha) throws ClassNotFoundException, SQLException {
 		boolean has = false;
@@ -234,15 +235,15 @@ public class ConnectSocket extends Thread {
 		return has;
 	}
 
-	public boolean hardwareExiste(String mac) throws ClassNotFoundException, SQLException {
-		boolean has = false;
-		BKHardwareDAO hardwareDAO = new BKHardwareDAO();
-		hardware = hardwareDAO.getHardware(mac);
-		if (hardware != null) {
-			has = true;
-		}
-		return has;
-	}
+//	public boolean hardwareExiste(String mac) throws ClassNotFoundException, SQLException {
+//		boolean has = false;
+//		BKHardwareDAO hardwareDAO = new BKHardwareDAO();
+//		hardware = hardwareDAO.getHardware(mac);
+//		if (hardware != null) {
+//			has = true;
+//		}
+//		return has;
+//	}
 
 	public void userGetJSONHardwares() throws ClassNotFoundException, SQLException {
 
@@ -364,6 +365,67 @@ public class ConnectSocket extends Thread {
 //		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*private void loop() {
 		/*
 		 * do {

@@ -1,4 +1,4 @@
-package br.com.bksolutionsdomotica.conexaobd.dao;
+package br.com.bksolutionsdomotica.conexaobd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.MysqlConnection;
 import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.Hardware;
 

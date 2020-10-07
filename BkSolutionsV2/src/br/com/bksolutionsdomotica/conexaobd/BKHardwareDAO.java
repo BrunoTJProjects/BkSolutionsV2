@@ -1,4 +1,4 @@
-package br.com.bksolutionsdomotica.conexaobd.dao;
+package br.com.bksolutionsdomotica.conexaobd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.bksolutionsdomotica.conexaobd.MysqlConnection;
 import br.com.bksolutionsdomotica.modelo.Hardware;
 
 public class BKHardwareDAO {
@@ -16,7 +15,7 @@ public class BKHardwareDAO {
 
 	}
 	
-	public synchronized int getCliente(Hardware hardware) throws ClassNotFoundException, SQLException {
+	public synchronized int getCodCliente(Hardware hardware) throws ClassNotFoundException, SQLException {
 		int id_cliente = 0;
 		PreparedStatement ps = null;
 		Connection conexao = MysqlConnection.getConnection();

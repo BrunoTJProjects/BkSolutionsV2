@@ -5,15 +5,13 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import br.com.bksolutionsdomotica.conexaobd.dao.BKHardwareDAO;
-import br.com.bksolutionsdomotica.conexaobd.dao.DataAccess;
+import br.com.bksolutionsdomotica.conexaobd.DataAccess;
 
 public class Hardware {
 	private String mac;
 	private String serial;
 	private Modelo modelo;
 	private static DataAccess dataAccess;
-	private static BKHardwareDAO bkHardwareDAO;
 	private SocketBase socketBase;
 
 	public Hardware(String mac, String serial, Modelo modelo) {
@@ -22,7 +20,6 @@ public class Hardware {
 		this.modelo = modelo;
 		if(dataAccess == null) {
 			dataAccess = new DataAccess();
-			bkHardwareDAO = new BKHardwareDAO();
 		}
 	}
 
@@ -75,11 +72,6 @@ public class Hardware {
 		return linhasafetadas;
 	}
 
-	public synchronized int getCliente() throws SQLException, ClassNotFoundException {
-		int dados = bkHardwareDAO.getCliente(this);
-		return dados;
-	}
-
 	public void closeResouces() throws IOException {
 		socketBase.closeResouces();
 	}
@@ -96,17 +88,9 @@ public class Hardware {
 		this.socketBase = socketBase;
 	}
 
-	public static BKHardwareDAO getBkHardwareDAO() {
-		return bkHardwareDAO;
-	}
-
-	public static void setBkHardwareDAO(BKHardwareDAO bkHardwareDAO) {
-		Hardware.bkHardwareDAO = bkHardwareDAO;
-	}
-
 	public String toString() {
 		String info = null;
-		info = "MAC: " + mac + " MODELO: " + modelo.getNome();
+		info = "MAC: " + mac + " MODELO: " + modelo.getNome() + " SENHA: " + serial;
 		return info;
 	}
 }
