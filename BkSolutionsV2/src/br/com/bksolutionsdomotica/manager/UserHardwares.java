@@ -59,5 +59,10 @@ public class UserHardwares {
 		return hardwares.get(hardware);
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "Numero de clientes: " + clientes.size() + "/ Numero de Hardwares: " + hardwares.size();
+	}
 
 }

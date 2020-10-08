@@ -86,6 +86,7 @@ public class Hardware {
 	
 	public void setSocketBase(SocketBase socketBase) {
 		this.socketBase = socketBase;
+		this.socketBase.setHardware(this);
 	}
 
 	public String toString() {

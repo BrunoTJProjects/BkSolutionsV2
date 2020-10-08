@@ -179,6 +179,7 @@ public class Cliente {
 	
 	public void setSocketBase(SocketBase socketBase) {
 		this.socketBase = socketBase;
+		this.socketBase.setCliente(this);
 	}
 	
 	public void closeResouces() throws IOException {

@@ -11,6 +11,8 @@ public class SocketBase {
 	private Socket socket;
 	private BufferedReader in;
 	private BufferedWriter out;
+	private Hardware hardware;
+	private Cliente cliente;
 //	private ObjectInputStream inObj;
 //	private ObjectOutputStream outObj;
 
@@ -53,6 +55,22 @@ public class SocketBase {
 		}
 		return stringBuilder.toString();
 	}
+
+	public Hardware getHardware() {
+		return hardware;
+	}
+
+	public void setHardware(Hardware hardware) {
+		this.hardware = hardware;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}	
 
 //	public void sendObject(Object obj) throws IOException {
 //		if (obj != null) {

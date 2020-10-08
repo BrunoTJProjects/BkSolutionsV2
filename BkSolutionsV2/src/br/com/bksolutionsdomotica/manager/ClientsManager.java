@@ -80,5 +80,11 @@ public class ClientsManager {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String string = new String(userHardwares.toString());
+		return string;
+	}
 
 }

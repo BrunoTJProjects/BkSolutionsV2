@@ -24,6 +24,12 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//Método criado para Debug juntamente com o Servidor.java
+	public static ClientsManager getGerenciador() {
+		return gerenciador;
+	}
 
 	@Override
 	public void onHardwareSignIn(SocketBase socketBase, String login, String password)
@@ -64,11 +70,11 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 		// TODO Auto-generated method stub
 		System.out.println("Logout Cliente");
 	}
-
+//		ATENÇÃO AQUI
 	@Override
 	public void onClienteCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException {
 		// TODO Auto-generated method stub
-		System.out.println("comm Cliente");
+		System.out.println("Comando do cliente: " + socketBase.getCliente());
 	}
 	
 	public static synchronized int getCodCliente(Hardware hardware) throws SQLException, ClassNotFoundException {
