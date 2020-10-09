@@ -1,10 +1,15 @@
 package br.com.bksolutionsdomotica.manager;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 import br.com.bksolutionsdomotica.modelo.Cliente;
 import br.com.bksolutionsdomotica.modelo.Hardware;
+import br.com.bksolutionsdomotica.modelo.SocketBase;
 import br.com.bksolutionsdomotica.servidor.MyServerBk;
 
 public class ClientsManager {
@@ -80,7 +85,33 @@ public class ClientsManager {
 			}
 		}
 	}
-	
+
+	public void onClienteCommand(SocketBase socketBase, JSONObject comando) throws IOException {
+		Cliente cliente = socketBase.getCliente();
+		if (cliente == null)
+			return;
+		UserHardwares userHardware = userHardwares.get(cliente.getId());
+		JSONObject jsonObject = comando.getJSONObject("dados");
+		String mac = jsonObject.getString("mac");
+		
+		for(Hardware hardware : userHardware.getHardwares()) {
+			
+		}
+		
+		
+		
+		
+		userHardware.onClienteCommand(cliente, hardware, comando);
+	}
+
+	public void onHardwareCommand(SocketBase socketBase, JSONObject comando) throws ClassNotFoundException, SQLException, IOException {
+		Hardware hardware = socketBase.getHardware();
+		if (hardware == null)
+			return;
+		UserHardwares userHardware = userHardwares.get(MyServerBk.getCodCliente(hardware));
+		userHardware.onHardwareCommand(hardware, comando);
+	}
+
 	@Override
 	public String toString() {
 		String string = new String(userHardwares.toString());

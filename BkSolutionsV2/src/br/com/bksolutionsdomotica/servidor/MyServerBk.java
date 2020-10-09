@@ -72,9 +72,12 @@ public class MyServerBk implements ServerCoreBK.InterfaceCommand {
 	}
 //		ATENÇÃO AQUI
 	@Override
-	public void onClienteCommand(SocketBase socketBase, JSONObject jsonObject) throws IOException {
+	public void onClienteCommand(SocketBase socketBase, JSONObject comando) throws IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Comando do cliente: " + socketBase.getCliente());
+//		System.out.println("Comando do cliente: " + socketBase.getCliente());
+//		JSONObject dadosJsonObject = comando.getJSONObject("dados");	
+		
+		gerenciador.onClienteCommand(socketBase, comando);
 	}
 	
 	public static synchronized int getCodCliente(Hardware hardware) throws SQLException, ClassNotFoundException {

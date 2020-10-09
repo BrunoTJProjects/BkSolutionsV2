@@ -92,7 +92,7 @@ public class ServerCoreBK {
 				for (SocketBase sb : listaTemporaria) {
 					try {
 						runOnce(sb);
-//						System.out.println(MyServerBk.getGerenciador().toString());// Retirar isso depois
+						System.out.println(MyServerBk.getGerenciador().toString());// Retirar isso depois
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					} catch (SQLException e) {

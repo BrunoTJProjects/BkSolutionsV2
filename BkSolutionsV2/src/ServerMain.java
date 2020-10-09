@@ -17,7 +17,86 @@ public class ServerMain {
 //		System.out.println(map2);
 		
 		new MyServerBk(58365);
+		
+//		Teste teste = new Teste();
+//		Teste2 teste2 = new Teste2();
+//	
+//		teste = teste2;
+//		
+//		Teste2 teste3 = (Teste2) teste;
+//		
+//		System.out.println(teste3.getJ());
+		
+		
+		
+		
+		
 	}
+	
+//	public static class Teste{
+//		int x, y;
+//		
+//		public Teste() {
+//			x = 9;
+//			y = 10;
+//		}
+//
+//		public int getX() {
+//			return x;
+//		}
+//
+//		public void setX(int x) {
+//			this.x = x;
+//		}
+//
+//		public int getY() {
+//			return y;
+//		}
+//
+//		public void setY(int y) {
+//			this.y = y;
+//		}
+//		
+//		@Override
+//		public String toString() {
+//			// TODO Auto-generated method stub
+//			return "x = " + x + "/ y = " + y;
+//		}
+//		
+//	}
+//	
+//	public static class Teste2 extends Teste{
+//		int i, j;
+//		
+//		public Teste2(){
+//			i = 11;
+//			j = 12;
+//		}
+//
+//		public int getI() {
+//			return i;
+//		}
+//
+//		public void setI(int i) {
+//			this.i = i;
+//		}
+//
+//		public int getJ() {
+//			return j;
+//		}
+//
+//		public void setJ(int j) {
+//			this.j = j;
+//		}
+//		
+//		@Override
+//		public String toString() {
+//			// TODO Auto-generated method stub
+//			return super.toString() + " i = " + i + "/ j = " + j;
+//		}
+//		
+//		
+//	}
 
 }
 
