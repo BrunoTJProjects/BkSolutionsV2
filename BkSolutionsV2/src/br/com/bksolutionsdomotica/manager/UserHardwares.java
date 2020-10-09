@@ -18,10 +18,6 @@ public class UserHardwares {
 	
 	
 
-	public HashMap<Hardware, JSONObject> getHardwares() {
-		return hardwares;
-	}
-
 	public void onClienteCommand(Cliente cliente, Hardware hardware, JSONObject comando) throws IOException {
 		for (Cliente c : clientes) {
 			if (c == cliente)
@@ -37,6 +33,7 @@ public class UserHardwares {
 		for (Cliente c : clientes) {
 			c.sendCommand(comando.toString());
 		}
+
 
 	}
 

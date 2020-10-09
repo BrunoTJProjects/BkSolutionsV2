@@ -94,14 +94,10 @@ public class ClientsManager {
 		JSONObject jsonObject = comando.getJSONObject("dados");
 		String mac = jsonObject.getString("mac");
 		
-		for(Hardware hardware : userHardware.getHardwares()) {
-			
-		}
 		
 		
 		
-		
-		userHardware.onClienteCommand(cliente, hardware, comando);
+//		userHardware.onClienteCommand(cliente, hardware, comando);
 	}
 
 	public void onHardwareCommand(SocketBase socketBase, JSONObject comando) throws ClassNotFoundException, SQLException, IOException {
