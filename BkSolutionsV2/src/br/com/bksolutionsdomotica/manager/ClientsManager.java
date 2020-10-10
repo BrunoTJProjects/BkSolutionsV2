@@ -1,7 +1,6 @@
 package br.com.bksolutionsdomotica.manager;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
 
